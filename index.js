@@ -34,27 +34,42 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
 
-app.post('/webhook/', function (req, res) {
-    let messaging_events = req.body.entry[0].messaging
-    for (let i = 0; i < messaging_events.length; i++) {
-      let event = req.body.entry[0].messaging[i]
-      let sender = event.sender.id
-      if (event.message && event.message.text) {
-        let text = event.message.text
-        if (text === 'Generic') {
-            sendGenericMessage(sender)
-            continue
+app.post('/webhook', function (req, res) {
+  var data = req.body;
+
+  // Make sure this is a page subscription
+  if (data.object === 'page') {
+
+    // Iterate over each entry - there may be multiple if batched
+    data.entry.forEach(function(entry) {
+      var pageID = entry.id;
+      var timeOfEvent = entry.time;
+
+      // Iterate over each messaging event
+      entry.messaging.forEach(function(event) {
+        if (event.message) {
+          receivedMessage(event);
+        } else {
+          console.log("Webhook received unknown event: ", event);
         }
-        sendTextMessage(sender, "Message received: " + text.substring(0, 200))
-      }
-      if (event.postback) {
-        let text = JSON.stringify(event.postback)
-        sendTextMessage(sender, "Postback: "+text.substring(0, 200), token)
-        continue
-      }
-    }
-    res.sendStatus(200)
-  })
+      });
+    });
+
+    // Assume all went well.
+    //
+    // You must send back a 200, within 20 seconds, to let us know
+    // you've successfully received the callback. Otherwise, the request
+    // will time out and we will keep trying to resend.
+    res.sendStatus(200);
+  }
+});
+  
+function receivedMessage(event) {
+  // Putting a stub for now, we'll expand it in the following steps
+  console.log("Message data: ", event.message);
+}
+
+
 
 
 function sendTextMessage(sender, text) {
