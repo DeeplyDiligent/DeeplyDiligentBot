@@ -65,7 +65,6 @@ app.post('/webhook', function (req, res) {
 });
   
 function receivedMessage(event) {
-  function receivedMessage(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
@@ -95,7 +94,6 @@ function receivedMessage(event) {
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
-}
 }
 
 
