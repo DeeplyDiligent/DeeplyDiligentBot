@@ -1,7 +1,7 @@
 'use strict'
 
-const token = process.env.FB_PAGE_ACCESS_TOKEN
-const vtoken = process.env.FB_VERIFY_ACCESS_TOKEN
+const token = 'thisistoken'
+const vtoken = 'EAADJNn4kPAkBAO7X3z82E2sP654NHrTXwnzQtZCUrp2BCFElf7M5HpytkcAZBuoGZBNXLfKq4zSc1RiVjeY6J8p8XDqI2GJBqb3gJETwIk1FConHWQO8YaX9GcZAMZA3K5ds85Me9y6HId0kL7yB1mjcsWes9bM7VLtDu1HQOiAZDZD'
 
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -23,10 +23,10 @@ app.get('/', function (req, res) {
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === 'thisistoken') {
+    if (req.query['hub.verify_token'] === token) {
         res.send(req.query['hub.challenge'])
     }
-    res.send('No sir2')
+    res.send('No sir3')
 })
 
 // Spin up the server
