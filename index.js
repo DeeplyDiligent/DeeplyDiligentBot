@@ -84,9 +84,11 @@ function receivedMessage(event) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
     switch (messageText) {
+	  messageText = messageText.toLowerCase()
       case 'reminder':
         sendGenericMessage(senderID);
         break;
+	  case 'hi':
 	  case 'hello':
 		sendTextMessage(senderID,"Hi!~")
     }
