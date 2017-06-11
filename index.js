@@ -7,8 +7,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
-var userpos = []
-var allreminders = []
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -71,10 +69,7 @@ function receivedMessage(event) {
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
-  if (recipientID in userpos){
-	  sendTextMessage(recipientID, recipientID+"was here")
-	  userpos.recipientID
-  }else{
+  
 	  console.log("Received message for user %d and page %d at %d with message:", 
 		senderID, recipientID, timeOfMessage);
 	  console.log(JSON.stringify(message));
@@ -101,7 +96,6 @@ function receivedMessage(event) {
 	  } else if (messageAttachments) {
 		sendTextMessage(senderID, "Message with attachment received");
 	  }
-  }
 }
 
 
@@ -121,14 +115,11 @@ function sendTextMessage(recipientId, messageText) {
 
 function reminders(recipientId) {
   sendTextMessage(recipientId, "What time would you like to be reminded")
-  dict.push({
-    key:   recipientId,
-    value: storeReminder(recipientId)
-	})
+  
 }
 
 function storeReminder(recipientId){
-	sendTextMessage(recipientId,"we did it")
+	
 }
 
 function callSendAPI(messageData) {
