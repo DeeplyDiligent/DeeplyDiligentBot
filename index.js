@@ -92,6 +92,11 @@ function receivedMessage(event) {
 			break;
 		  case 'hey':
 			sendTextMessage(senderID, "Hey! Whats up?")
+			break;
+		  default:
+			var myArray = ['Yes','no','okay','k','call me','lol','bye'];   
+			var rand = myArray[Math.floor(Math.random() * myArray.length)];
+			sendTextMessage(senderID, rand)
 		}
 	  } else if (messageAttachments) {
 		sendTextMessage(senderID, "Message with attachment received");
