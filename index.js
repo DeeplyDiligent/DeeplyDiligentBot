@@ -7,6 +7,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+var userpos = []
+var allreminders = []
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -69,32 +71,36 @@ function receivedMessage(event) {
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
+  if (recipientID in userpos){
+	  sendTextMessage(recipientID, recipientID+"was here")
+	  userpos.recipientID
+  }else{
+	  console.log("Received message for user %d and page %d at %d with message:", 
+		senderID, recipientID, timeOfMessage);
+	  console.log(JSON.stringify(message));
 
-  console.log("Received message for user %d and page %d at %d with message:", 
-    senderID, recipientID, timeOfMessage);
-  console.log(JSON.stringify(message));
+	  var messageId = message.mid;
 
-  var messageId = message.mid;
+	  var messageText = message.text;
+	  var messageAttachments = message.attachments;
 
-  var messageText = message.text;
-  var messageAttachments = message.attachments;
+	  if (messageText) {
 
-  if (messageText) {
-
-    // If we receive a text message, check to see if it matches a keyword
-    // and send back the example. Otherwise, just echo the text we received.
-	messageText = messageText.toLowerCase()
-    switch (messageText) {
-	  
-      case 'reminder':
-        sendGenericMessage(senderID);
-        break;
-	  case 'hi':
-	  case 'hello':
-		sendTextMessage(senderID,"Hi!~")
-    }
-  } else if (messageAttachments) {
-    sendTextMessage(senderID, "Message with attachment received");
+		// If we receive a text message, check to see if it matches a keyword
+		// and send back the example. Otherwise, just echo the text we received.
+		messageText = messageText.toLowerCase()
+		switch (messageText) {
+		  
+		  case 'reminder':
+			reminders(senderID);
+			break;
+		  case 'hi':
+		  case 'hello':
+			sendTextMessage(senderID,"Hi!~")
+		}
+	  } else if (messageAttachments) {
+		sendTextMessage(senderID, "Message with attachment received");
+	  }
   }
 }
 
@@ -113,8 +119,16 @@ function sendTextMessage(recipientId, messageText) {
 }
 
 
-function sendGenericMessage(recipientId, messageText) {
-  // To be expanded in later sections
+function reminders(recipientId) {
+  sendTextMessage(recipientId, "What time would you like to be reminded")
+  dict.push({
+    key:   recipientId,
+    value: storeReminder(recipientId)
+	})
+}
+
+function storeReminder(recipientId){
+	sendTextMessage(recipientId,"we did it")
 }
 
 function callSendAPI(messageData) {
