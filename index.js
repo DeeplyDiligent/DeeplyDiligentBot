@@ -48,7 +48,6 @@ app.post('/webhook', function (req, res) {
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
         if (event.message) {
-		  sendTextMessage(event.sender.id,event)
           receivedMessage(event);
         } else {
           console.log("Webhook received unknown event: ", event);
@@ -93,6 +92,8 @@ function receivedMessage(event) {
 		  case 'hi':
 		  case 'hello':
 			sendTextMessage(senderID,"Hi!~")
+		  case 'hey':
+			sendTextMessage(senderID, "Hey! Whats up?")
 		}
 	  } else if (messageAttachments) {
 		sendTextMessage(senderID, "Message with attachment received");
