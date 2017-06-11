@@ -86,6 +86,15 @@ function receivedMessage(event) {
 		  case 'reminder':
 			reminders(senderID);
 			break;
+		  case 'what are u doing':
+		  case 'what are u doing?':
+		  case 'what are you doing':
+		  case 'what are you doing?':
+			sendTextMessage(senderID, "I dont know")
+			break;
+		  case "u don't know what u are doing?":
+			sendTextMessage(senderID, "bye")
+			break;
 		  case 'hi':
 		  case 'hello':
 			sendTextMessage(senderID,"Hi!~")
