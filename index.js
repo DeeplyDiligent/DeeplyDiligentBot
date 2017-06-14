@@ -7,6 +7,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+var all_messages = [];
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -81,32 +82,11 @@ function receivedMessage(event) {
 
 	  if (messageText) {
 		messageText = messageText.toLowerCase()
-		switch (messageText) {
-		  
-		  case 'reminder':
-			reminders(senderID);
-			break;
-		  case 'what are u doing':
-		  case 'what are u doing?':
-		  case 'what are you doing':
-		  case 'what are you doing?':
-			sendTextMessage(senderID, "I dont know")
-			break;
-		  case "u don't know what u are doing?":
-			sendTextMessage(senderID, "bye")
-			break;
-		  case 'hi':
-		  case 'hello':
-			sendTextMessage(senderID,"Hi!~")
-			break;
-		  case 'hey':
-			sendTextMessage(senderID, "Hey! Whats up?")
-			break;
-		  default:
-			var myArray = ['Yes','no','okay','k','call me','lol','bye'];   
-			var rand = myArray[Math.floor(Math.random() * myArray.length)];
-			sendTextMessage(senderID, rand)
-		}
+		all_messages.push({
+			key:   senderID,
+			value: messageText
+		});
+		console.log(all_messages)
 	  } else if (messageAttachments) {
 		sendTextMessage(senderID, "Message with attachment received");
 	  }
