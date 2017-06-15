@@ -66,32 +66,37 @@ app.post('/webhook', function (req, res) {
 });
   
 function receivedMessage(event) {
-  var senderID = event.sender.id;
-  var recipientID = event.recipient.id;
-  var timeOfMessage = event.timestamp;
-  var message = event.message;
-  
-	  console.log("Received message for user %d and page %d at %d with message:", 
-		senderID, recipientID, timeOfMessage);
-	  console.log(JSON.stringify(message));
+	var senderID = event.sender.id;
+	var recipientID = event.recipient.id;
+	var timeOfMessage = event.timestamp;
+	var message = event.message;
 
-	  var messageId = message.mid;
+	console.log("Received message for user %d and page %d at %d with message:", 
+	senderID, recipientID, timeOfMessage);
+	console.log(JSON.stringify(message));
 
-	  var messageText = message.text;
-	  var messageAttachments = message.attachments;
+	var messageId = message.mid;
 
-	  if (messageText) {
+	var messageText = message.text;
+	var messageAttachments = message.attachments;
+
+	if (messageText) {
 		messageText = messageText.toLowerCase()
-	  if (senderID in all_messages){
-		  all_messages[senderID].push(messageText)
-	  }else{
-		  all_messages[senderID] = [messageText]
-	  }
+		if (messageText == 'reminder' || (senderID in all_messages && all_messages[senderID][0] == "reminder")){ //if i need to go to reminder function
+			if (senderID in all_messages){
+				all_messages[senderID].push(messageText)
+			}else{
+				all_messages[senderID] = [messageText]
+			}
+			reminders(senderID);
+		}else{
+			sendTextMessage(recipientId, "i dont recognise your message")
+		}
 		console.log(all_messages)
 		console.log(all_messages[senderID])
-	  } else if (messageAttachments) {
-		sendTextMessage(senderID, "Message with attachment received");
-	  }
+	} else if (messageAttachments) {
+	sendTextMessage(senderID, "Message with attachment received");
+	}
 }
 
 
@@ -110,7 +115,13 @@ function sendTextMessage(recipientId, messageText) {
 
 
 function reminders(recipientId) {
-  sendTextMessage(recipientId, "What time would you like to be reminded")
+	if (all_messages.length == 1){
+		sendTextMessage(recipientId, "What time would you like to be reminded")
+	}else if (all_messages.length == 2){
+		sendTextMessage(recipientId, "second stage")
+	}
+  
+  
   
 }
 
