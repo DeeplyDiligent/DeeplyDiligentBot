@@ -51,7 +51,7 @@ app.post('/webhook', function (req, res) {
 		 console.log(JSON.stringify(event.message))
         if (event.message && event.message["is_echo"] != true) {
           receivedMessage(event);
-        } else if(event.message["is_echo"] != true){
+        } else if(event.message["is_echo"] == true){
 			console.log("webhook recieved echo from response");
 		}else {
           console.log("Webhook received unknown event");
