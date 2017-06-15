@@ -10,11 +10,11 @@ const app = express()
 var all_messages = {};
 var reminders = {};
 var fs = require("fs");
-var DATABASEURL = 'mysql://hlpyntizh5ggmgpu:ey9y3gsy6yeron5g@lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/a5k2f0dg7ceadu99';
+
 
 //mysql
+var DATABASEURL = 'mysql://hlpyntizh5ggmgpu:ey9y3gsy6yeron5g@lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/a5k2f0dg7ceadu99';
 var mysql = require('mysql');
-var connection = mysql.createConnection(process.env.DATABASEURL);
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -139,6 +139,7 @@ function sendTextMessage(recipientId, messageText) {
 
 
 function ReminderFunc(recipientId,message) {
+    var connection = mysql.createConnection(process.env.DATABASEURL);
     connection.connect();
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (err) throw err;
