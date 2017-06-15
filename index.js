@@ -53,7 +53,7 @@ app.post('/webhook', function (req, res) {
         } else if(event.message && event.message["is_echo"] == true){
 			console.log("webhook recieved echo from response");
 		}else {
-          console.log("Webhook received unknown event");
+          //console.log("Webhook received unknown event");
         }
       });
     });
