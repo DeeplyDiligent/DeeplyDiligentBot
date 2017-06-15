@@ -92,8 +92,10 @@ function receivedMessage(event) {
 		}else{
 			sendTextMessage(senderID, "i dont recognise your message")
 		}
-		console.log("messages by everyone"+ all_messages)
-		console.log("messages by you: "+all_messages[senderID])
+		console.log("messages by everyone: ")
+		console.log(all_messages)
+		console.log("messages by you: ")
+		console.log(all_messages[senderID])
 	} else if (messageAttachments) {
 	sendTextMessage(senderID, "Message with attachment received");
 	}
