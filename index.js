@@ -73,7 +73,7 @@ function receivedMessage(event) {
 	//setting active reminders
     var reminders = require("./filename.json");
 //    console.log('imported reminders successfully')
-//    console.log(reminders)
+    console.log(reminders)
 	
 	
 	
