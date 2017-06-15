@@ -122,7 +122,7 @@ function sendTextMessage(recipientId, messageText) {
 function ReminderFunc(recipientId) {
 	if (all_messages[recipientId].length == 1){
 		sendTextMessage(recipientId, "What time would you like to be reminded")
-	}else if (all_messages[recipientId].length == 2){
+	}else if (all_messages[recipientId].length >= 2){
 		if (recipientId in reminders){
 				reminders[recipientId].push(message)
 			}else{
