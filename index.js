@@ -90,7 +90,7 @@ function receivedMessage(event) {
 			}else{
 				all_messages[senderID] = [messageText]
 			}
-			ReminderFunc(senderID);
+			ReminderFunc(senderID,messageText);
 		}else{
 			sendTextMessage(senderID, "i dont recognise your message")
 		}
@@ -119,7 +119,7 @@ function sendTextMessage(recipientId, messageText) {
 }
 
 
-function ReminderFunc(recipientId) {
+function ReminderFunc(recipientId,message) {
 	if (all_messages[recipientId].length == 1){
 		sendTextMessage(recipientId, "What time would you like to be reminded")
 	}else if (all_messages[recipientId].length >= 2){
