@@ -48,7 +48,7 @@ app.post('/webhook', function (req, res) {
 
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
-		 console.log(event.message.is_echo)
+		 console.log(JSON.stringify(message))
         if (event.message && event.message.is_echo != true) {
           receivedMessage(event);
         } else if(event.is_echo == true){
