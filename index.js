@@ -75,7 +75,7 @@ function receivedMessage(event) {
     fs.open('./filename.json','r',function(err,fd){
         if (err && err.code=='ENOENT') { exists = false}
     });
-    if (exists)) {
+    if (exists) {
         var reminders = require("./filename.json");
     }
     console.log(reminders)
