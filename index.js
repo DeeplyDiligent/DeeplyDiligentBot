@@ -83,7 +83,6 @@ function receivedMessage(event) {
 	  if (messageText) {
 		messageText = messageText.toLowerCase()
 		all_messages[senderID] = messageText
-		sendTextMessage(senderID, "Thanks for your message. This bot is currently in development!");
 		console.log(all_messages)
 	  } else if (messageAttachments) {
 		sendTextMessage(senderID, "Message with attachment received");
