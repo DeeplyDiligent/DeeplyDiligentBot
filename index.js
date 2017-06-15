@@ -119,6 +119,7 @@ function reminders(recipientId) {
 		sendTextMessage(recipientId, "What time would you like to be reminded")
 	}else if (all_messages[recipientId].length == 2){
 		sendTextMessage(recipientId, "second stage")
+		delete all_messages[recipientId];
 	}
   
   
