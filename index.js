@@ -129,6 +129,8 @@ function ReminderFunc(recipientId,message) {
 				reminders[recipientId] = [message]
 			}
 		sendTextMessage(recipientId, "you have reminders at: ")
+		console.log('reminders for user' + recipientId)
+		console.log(reminders[recipientId])
 		sendTextMessage(recipientId, reminders[recipientId])
 		
 		delete all_messages[recipientId];
