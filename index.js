@@ -13,8 +13,7 @@ var fs = require("fs");
 
 //mysql
 var mysql = require('mysql');
-var connection = mysql.createConnection(process.env.mysql://hlpyntizh5ggmgpu:ey9y3gsy6yeron5g@lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/a5k2f0dg7ceadu99
-                                        )
+var connection = mysql.createConnection(process.env.mysql:"//hlpyntizh5ggmgpu:ey9y3gsy6yeron5g@lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/a5k2f0dg7ceadu99");
 
 app.set('port', (process.env.PORT || 5000))
 
