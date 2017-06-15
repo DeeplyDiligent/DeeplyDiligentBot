@@ -115,9 +115,9 @@ function sendTextMessage(recipientId, messageText) {
 
 
 function reminders(recipientId) {
-	if (all_messages.length == 1){
+	if (all_messages[recipentId].length == 1){
 		sendTextMessage(recipientId, "What time would you like to be reminded")
-	}else if (all_messages.length == 2){
+	}else if (all_messages[recipentId].length == 2){
 		sendTextMessage(recipientId, "second stage")
 	}
   
