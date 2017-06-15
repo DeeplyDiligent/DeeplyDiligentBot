@@ -139,7 +139,7 @@ function sendTextMessage(recipientId, messageText) {
 
 
 function ReminderFunc(recipientId,message) {
-    var connection = mysql.createConnection(process.env.DATABASEURL);
+    var connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection.connect();
     connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
       if (err) throw err;
