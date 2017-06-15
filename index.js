@@ -90,7 +90,7 @@ function receivedMessage(event) {
 			}
 			reminders(senderID);
 		}else{
-			sendTextMessage(recipientId, "i dont recognise your message")
+			sendTextMessage(senderID, "i dont recognise your message")
 		}
 		console.log(all_messages)
 		console.log(all_messages[senderID])
