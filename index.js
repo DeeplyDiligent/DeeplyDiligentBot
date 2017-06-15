@@ -72,7 +72,7 @@ app.post('/webhook', function (req, res) {
 function receivedMessage(event) {
 	//setting active reminders
     reminders = require("./filename.json");
-//    console.log('imported reminders successfully')
+    console.log('imported reminders successfully')
     console.log(reminders)
 	
 	
@@ -145,9 +145,9 @@ function ReminderFunc(recipientId,message) {
               console.log('[write auth]: success');
             }
           })
-        reminders = require("./filename.json");
-        console.log('imported reminders successfully')
-        console.log(reminders)
+//        reminders = require("./filename.json");
+//        console.log('imported reminders successfully')
+//        console.log(reminders)
 		delete all_messages[recipientId];
 	}
 }
