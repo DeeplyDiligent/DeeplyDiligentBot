@@ -100,7 +100,12 @@ function receivedMessage(event) {
 				all_messages[senderID] = [messageText]
 			}
 			ReminderFunc(senderID,messageText);
-		}else{
+		}else if (messageText == 'clear reminder' || messageText == 'clear reminders'){
+            if (senderID in reminders){
+                delete reminders[senderID]
+            }
+            sendTextMessage(senderID, "No problems! You have no more reminders")
+        }else{
 			sendTextMessage(senderID, "i dont recognise your message")
 		}
 		console.log("messages by everyone: ")
