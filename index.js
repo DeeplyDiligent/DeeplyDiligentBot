@@ -84,6 +84,7 @@ function receivedMessage(event) {
 		messageText = messageText.toLowerCase()
 		all_messages[senderID] = messageText
 		console.log(all_messages)
+		console.log(all_messages[senderID])
 	  } else if (messageAttachments) {
 		sendTextMessage(senderID, "Message with attachment received");
 	  }
