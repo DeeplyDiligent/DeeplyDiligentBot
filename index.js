@@ -49,13 +49,12 @@ app.post('/webhook', function (req, res) {
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
 		 console.log(JSON.stringify(event.message))
-		 console.log(event.message["is_echo"])
         if (event.message && event.message["is_echo"] != true) {
           receivedMessage(event);
-        } else if(event.is_echo == true){
+        } else if(event.message["is_echo"] != true){
 			console.log("webhook recieved echo from response");
 		}else {
-          console.log("Webhook received unknown event: ");
+          console.log("Webhook received unknown event");
         }
       });
     });
