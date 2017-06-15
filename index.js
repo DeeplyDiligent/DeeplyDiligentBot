@@ -39,7 +39,7 @@ app.listen(app.get('port'), function() {
 
 app.post('/webhook', function (req, res) {
   var data = req.body;
-
+  res.sendStatus(200);
   // Make sure this is a page subscription
   if (data.object === 'page') {
 
@@ -64,8 +64,8 @@ app.post('/webhook', function (req, res) {
     //
     // You must send back a 200, within 20 seconds, to let us know
     // you've successfully received the callback. Otherwise, the request
-    // will time out and we will keep trying to resend.
-    res.sendStatus(200);
+    // will time out and we will keep trying to resend. send asap
+//    res.sendStatus(200);
   }
 });
   
