@@ -11,6 +11,10 @@ var all_messages = {};
 var reminders = {};
 var fs = require("fs");
 
+//mysql
+var mysql = require('mysql');
+var connection = mysql.createConnection(process.env."mysql://hlpyntizh5ggmgpu:ey9y3gsy6yeron5g@lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/a5k2f0dg7ceadu99");
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -134,6 +138,14 @@ function sendTextMessage(recipientId, messageText) {
 
 
 function ReminderFunc(recipientId,message) {
+    connection.connect();
+    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+      if (err) throw err;
+      console.log('The solution is: ', rows);
+    });
+    connection.end();
+    
+    
 	if (all_messages[recipientId].length == 1){
 		sendTextMessage(recipientId, "What time would you like to be reminded")
 	}else if (all_messages[recipientId].length >= 2){
