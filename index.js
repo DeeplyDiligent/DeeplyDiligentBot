@@ -70,16 +70,9 @@ app.post('/webhook', function (req, res) {
 });
   
 function receivedMessage(event) {
-	//stting active reminders
-    var exists = true
-    fs.open('./filename.json','r',function(err,fd){
-        if (err && err.code=='ENOENT') { exists = false}
-    });
-    if (exists) {
-        var reminders = require("./filename.json");
-        console.log('imported reminders successfully')
-        console.log(reminders)
-    }
+	//setting active reminders
+    var reminders = require("./filename.json");
+    console.log('imported reminders successfully')
     console.log(reminders)
 	
 	
