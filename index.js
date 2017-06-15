@@ -48,7 +48,6 @@ app.post('/webhook', function (req, res) {
 
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
-		 console.log(JSON.stringify(event.message))
         if (event.message && event.message["is_echo"] != true) {
           receivedMessage(event);
         } else if(event.message && event.message["is_echo"] == true){
@@ -74,9 +73,8 @@ function receivedMessage(event) {
 	var timeOfMessage = event.timestamp;
 	var message = event.message;
 
-	console.log("Received message for user %d and page %d at %d with message:", 
-	senderID, recipientID, timeOfMessage);
-	console.log(JSON.stringify(message));
+	console.log("Received %d from %d", message.text,senderID);
+	//console.log(JSON.stringify(message));
 
 	var messageId = message.mid;
 
