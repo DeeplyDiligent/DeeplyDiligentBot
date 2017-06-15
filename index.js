@@ -48,10 +48,10 @@ app.post('/webhook', function (req, res) {
 
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
-        if (event.message) {
+        if (event.message && event."is_echo" != true) {
           receivedMessage(event);
         } else {
-          //console.log("Webhook received unknown event: ", event);
+          console.log("Webhook received unknown event: ");
         }
       });
     });
@@ -93,7 +93,7 @@ function receivedMessage(event) {
 			sendTextMessage(senderID, "i dont recognise your message")
 		}
 		console.log("messages by everyone: ")
-		console.log(all_messages)
+		console.log(all_messages)	
 		console.log("messages by you: ")
 		console.log(senderID)
 		console.log(all_messages[senderID])
