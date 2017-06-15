@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const token = 'thisistoken'
 const vtoken = 'EAADJNn4kPAkBAGob7TMYmOQ5bQwUtLxWU5njGKWx4vUItZAEgP4407T6ImZA1In4JO5mFg6ZCCFMPp8p0dUEH91uQkXf9jJT9gNIZCpWmSMWjFglGsFxQdBV6GnyRuTfZAhZCdZBDMAxzz01GXKA54CZA0vskemjSrzNLISVz8eBNgZDZD'
@@ -9,6 +9,7 @@ const request = require('request')
 const app = express()
 var all_messages = {};
 var reminders = {};
+var fs = require("fs");
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -69,6 +70,18 @@ app.post('/webhook', function (req, res) {
 });
   
 function receivedMessage(event) {
+	//setting active reminders
+    var exists = true
+    fs.open('./filename.json','r',function(err,fd){
+        if (err && err.code=='ENOENT') { exists = false}
+    });
+    if (exists)) {
+        var reminders = require("./filename.json");
+    }
+	
+	
+	
+	
 	var senderID = event.sender.id;
 	var recipientID = event.recipient.id;
 	var timeOfMessage = event.timestamp;
@@ -129,10 +142,13 @@ function ReminderFunc(recipientId,message) {
 				reminders[recipientId] = [message]
 			}
 		sendTextMessage(recipientId, "you have reminders at: "+ reminders[recipientId])
-		console.log('reminders for user' + recipientId)
-		console.log(reminders[recipientId])
-		//sendTextMessage(recipientId, )
-		
+		fs.writeFile( "filename.json", JSON.stringify(reminders), "utf8",function(error) {
+            if(error) { 
+              console.log('[write auth]: ' + err);
+            } else {
+              console.log('[write auth]: success');
+            }
+          })
 		delete all_messages[recipientId];
 	}
   
