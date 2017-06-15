@@ -86,7 +86,9 @@ function receivedMessage(event) {
 			key:   senderID,
 			value: messageText
 		});
+		sendTextMessage(senderID, "Thanks for your message. This bot is currently in development!");
 		console.log(all_messages)
+		console.log(all_messages[senderID])
 	  } else if (messageAttachments) {
 		sendTextMessage(senderID, "Message with attachment received");
 	  }
