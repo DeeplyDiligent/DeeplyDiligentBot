@@ -7,7 +7,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
-var all_messages = [];
+var all_messages = {};
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -82,10 +82,7 @@ function receivedMessage(event) {
 
 	  if (messageText) {
 		messageText = messageText.toLowerCase()
-		all_messages.push({
-			key:   senderID,
-			value: messageText
-		});
+		all_messages[senderID] = messageText
 		sendTextMessage(senderID, "Thanks for your message. This bot is currently in development!");
 		console.log(all_messages)
 		console.log(all_messages[senderID])
