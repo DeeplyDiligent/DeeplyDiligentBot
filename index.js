@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 var all_messages = {};
+var reminders = {};
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -89,7 +90,7 @@ function receivedMessage(event) {
 			}else{
 				all_messages[senderID] = [messageText]
 			}
-			reminders(senderID);
+			reminders(senderID,messageText);
 		}else{
 			sendTextMessage(senderID, "i dont recognise your message")
 		}
@@ -118,11 +119,18 @@ function sendTextMessage(recipientId, messageText) {
 }
 
 
-function reminders(recipientId) {
+function reminders(recipientId,message) {
 	if (all_messages[recipientId].length == 1){
 		sendTextMessage(recipientId, "What time would you like to be reminded")
 	}else if (all_messages[recipientId].length == 2){
-		sendTextMessage(recipientId, "second stage")
+		if (recipientId in reminders){
+				reminders[recipientId].push(message)
+			}else{
+				reminders[recipientId] = [message]
+			}
+		sendTextMessage(recipientId, "you have reminders at: ")
+		sendTextMessage(recipientId, reminders[recipientId])
+		
 		delete all_messages[recipientId];
 	}
   
