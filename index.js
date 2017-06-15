@@ -78,6 +78,7 @@ function receivedMessage(event) {
     if (exists)) {
         var reminders = require("./filename.json");
     }
+    console.log(reminders)
 	
 	
 	
