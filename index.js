@@ -82,7 +82,11 @@ function receivedMessage(event) {
 
 	  if (messageText) {
 		messageText = messageText.toLowerCase()
-		all_messages[senderID] = messageText
+	  if (senderID in all_messages){
+		  all_messages[senderID].push(messageText)
+	  }else{
+		  all_messages[senderID] = [messageText]
+	  }
 		console.log(all_messages)
 		console.log(all_messages[senderID])
 	  } else if (messageAttachments) {
