@@ -73,7 +73,7 @@ function receivedMessage(event) {
 	var timeOfMessage = event.timestamp;
 	var message = event.message;
 
-	console.log("Received %d from %d", message.text,senderID);
+	console.log("Received %s from %d", message.text,senderID);
 	//console.log(JSON.stringify(message));
 
 	var messageId = message.mid;
