@@ -13,17 +13,8 @@ var fs = require("fs");
 
 
 //mysql
-var DATABASEURL = 'mysql://hlpyntizh5ggmgpu:ey9y3gsy6yeron5g@lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/a5k2f0dg7ceadu99';
-var mysql = require('mysql');
-var connection = mysql.createConnection(process.env.JAWSDB_URL);
-connection.connect();
-connection.query("CREATE TABLE IF NOT EXISTS Customers (name VARCHAR(20), data VARCHAR(20));", function(err, rows, fields) {
-  if (err) throw err;
-  console.log('The OUTPUT is: ', rows);
-});
-connection.end();
-
-
+initTable();
+retrieveReminders();    
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -84,7 +75,6 @@ app.post('/webhook', function (req, res) {
 });
   
 function receivedMessage(event) {
-    retrieveReminders();
     
 	//setting active reminders
     reminders = require("./filename.json");
@@ -203,7 +193,7 @@ function callSendAPI(messageData) {
 function putInTable(userID,message){
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection.connect();
-    var updateorinstert = "INSERT INTO `Customers` (`name`,`data`) values ('"+userID+"','"+message+"') ON DUPLICATE KEY UPDATE '"+userID+"' = '"+message+"'"
+    var updateorinstert = "INSERT INTO `Customers` (`name`,`data`) values ('"+userID+"','"+message+"') ON DUPLICATE KEY UPDATE `name` = '"+userID+"'"
     console.log('about to run '+updateorinstert +' on database')
     connection.query(updateorinsert, function(err, rows, fields) {
       if (err) throw err;
@@ -216,11 +206,22 @@ function retrieveReminders(){
     var newReminders = {};
     connection.connect();
     console.log('about to retrieve reminders from database')
-//    connection.query('SELECT data FROM Customers LIMIT 0,1', function(err, rows, fields) {
-//      if (err) throw err;
-//      console.log("this is what i got");
-//        console.log(rows);
-//        console.log(fields);
-//    });
+    connection.query('SELECT * FROM Customers LIMIT 0,1', function(err, rows, fields) {
+      if (err) throw err;
+      console.log("this is what i got");
+        console.log(rows);
+        console.log(fields);
+    });
     connection.end();
+}
+function initTable(){
+    var mysql = require('mysql');
+    var connection = mysql.createConnection(process.env.JAWSDB_URL);
+    connection.connect();
+    connection.query("CREATE TABLE IF NOT EXISTS Customers (name VARCHAR(20), data VARCHAR(20));", function(err, rows, fields) {
+      if (err) throw err;
+    //  console.log('The OUTPUT is: ', rows);
+    });
+    connection.end();
+    console.log('database created')
 }
