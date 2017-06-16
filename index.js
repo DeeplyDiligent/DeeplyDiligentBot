@@ -216,11 +216,11 @@ function retrieveReminders(){
     var newReminders = {};
     connection.connect();
     console.log('about to retrieve reminders from database')
-    connection.query('SELECT data FROM Customers LIMIT 0,1', function(err, rows, fields) {
-      if (err) throw err;
-      console.log("this is what i got");
-        console.log(rows);
-        console.log(fields);
-    });
+//    connection.query('SELECT data FROM Customers LIMIT 0,1', function(err, rows, fields) {
+//      if (err) throw err;
+//      console.log("this is what i got");
+//        console.log(rows);
+//        console.log(fields);
+//    });
     connection.end();
 }
