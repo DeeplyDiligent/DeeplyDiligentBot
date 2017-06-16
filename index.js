@@ -194,8 +194,8 @@ function callSendAPI(messageData) {
 function putInTable(userID,message){
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection.connect();
-    var updateorinstert = "INSERT INTO `Customers` (`name`,`data`) values ('"+userID+"','"+message+"') ON DUPLICATE KEY UPDATE `name` = '"+userID+"'"
-    console.log('about to run '+updateorinstert +' on database')
+    var updateorinsert = "INSERT INTO `Customers` (`name`,`data`) values ('"+userID+"','"+message+"') ON DUPLICATE KEY UPDATE `name` = '"+userID+"'"
+    console.log('about to run '+updateorinsert +' on database');
     connection.query(updateorinsert, function(err, rows, fields) {
       if (err) throw err;
       console.log(message+"placed in Customers for "+userID);
