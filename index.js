@@ -17,11 +17,12 @@ var DATABASEURL = 'mysql://hlpyntizh5ggmgpu:ey9y3gsy6yeron5g@lg7j30weuqckmw07.cb
 var mysql = require('mysql');
 var connection = mysql.createConnection(process.env.JAWSDB_URL);
 connection.connect();
-connection.query("CREATE TABLE IF NOT EXISTS Customers (name VARCHAR(20), owner VARCHAR(20));", function(err, rows, fields) {
+connection.query("CREATE TABLE IF NOT EXISTS Customers (name VARCHAR(20), data VARCHAR(20));", function(err, rows, fields) {
   if (err) throw err;
   console.log('The OUTPUT is: ', rows);
 });
 connection.end();
+
 
 
 app.set('port', (process.env.PORT || 5000))
@@ -83,6 +84,8 @@ app.post('/webhook', function (req, res) {
 });
   
 function receivedMessage(event) {
+    retrieveReminders();
+    
 	//setting active reminders
     reminders = require("./filename.json");
     console.log('imported reminders successfully')
@@ -147,15 +150,6 @@ function sendTextMessage(recipientId, messageText) {
 
 
 function ReminderFunc(recipientId,message) {
-    var connection = mysql.createConnection(process.env.JAWSDB_URL);
-    connection.connect();
-    connection.query("INSERT INTO Customers (user, data) VALUES ("+recipientId+", "+message+");", function(err, rows, fields) {
-      if (err) throw err;
-      console.log('The solution is: ', rows);
-    });
-    connection.end();
-    
-    
 	if (all_messages[recipientId].length == 1){
 		sendTextMessage(recipientId, "What time would you like to be reminded")
 	}else if (all_messages[recipientId].length >= 2){
@@ -165,16 +159,18 @@ function ReminderFunc(recipientId,message) {
 				reminders[recipientId] = [message]
 			}
 		sendTextMessage(recipientId, "you have reminders at: "+ reminders[recipientId])
-		fs.writeFile( "filename.json", JSON.stringify(reminders), "utf8",function(error) {
-            if(error) { 
-              console.log('[write auth]: ' + err);
-            } else {
-              console.log('[write auth]: success');
-            }
-          })
-//        reminders = require("./filename.json");
-//        console.log('imported reminders successfully')
-//        console.log(reminders)
+//		fs.writeFile( "filename.json", JSON.stringify(reminders), "utf8",function(error) {
+//            if(error) { 
+//              console.log('[write auth]: ' + err);
+//            } else {
+//              console.log('[write auth]: success');
+//            }
+//          })
+////        reminders = require("./filename.json");
+////        console.log('imported reminders successfully')
+////        console.log(reminders)
+        //database entry
+        putInTable('data entry 1',reminders)
 		delete all_messages[recipientId];
 	}
 }
@@ -202,4 +198,29 @@ function callSendAPI(messageData) {
       //console.error(error);
     }
   });  
+}
+
+function putInTable(userID,message){
+    var connection = mysql.createConnection(process.env.JAWSDB_URL);
+    connection.connect();
+    var updateorinstert = "INSERT INTO `Customers` (`name`,`data`) values ('"+userID+"','"+message+"') ON DUPLICATE KEY UPDATE '"+userID+"' = '"+message+"'"
+    console.log('about to run '+updateorinstert +' on database')
+    connection.query(updateorinsert, function(err, rows, fields) {
+      if (err) throw err;
+      console.log(message+"placed in Customers for "+userID);
+    });
+    connection.end();
+}
+function retrieveReminders(){
+    var connection = mysql.createConnection(process.env.JAWSDB_URL);
+    var newReminders = {};
+    connection.connect();
+    console.log('about to retrieve reminders from database')
+    connection.query('SELECT data FROM Customers LIMIT 0,1', function(err, rows, fields) {
+      if (err) throw err;
+      console.log("this is what i got");
+        console.log(rows);
+        console.log(fields);
+    });
+    connection.end();
 }
