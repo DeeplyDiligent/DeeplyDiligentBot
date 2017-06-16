@@ -13,6 +13,7 @@ var fs = require("fs");
 
 
 //mysql
+var mysql = require('mysql');
 initTable();
 retrieveReminders();    
 
@@ -215,7 +216,6 @@ function retrieveReminders(){
     connection.end();
 }
 function initTable(){
-    var mysql = require('mysql');
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection.connect();
     connection.query("CREATE TABLE IF NOT EXISTS Customers (name VARCHAR(20), data VARCHAR(20));", function(err, rows, fields) {
