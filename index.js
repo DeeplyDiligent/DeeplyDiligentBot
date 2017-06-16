@@ -15,6 +15,14 @@ var fs = require("fs");
 //mysql
 var DATABASEURL = 'mysql://hlpyntizh5ggmgpu:ey9y3gsy6yeron5g@lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/a5k2f0dg7ceadu99';
 var mysql = require('mysql');
+var connection = mysql.createConnection(process.env.JAWSDB_URL);
+connection.connect();
+connection.query("CREATE TABLE IF NOT EXISTS Customers (name VARCHAR(20), owner VARCHAR(20));", function(err, rows, fields) {
+  if (err) throw err;
+  console.log('The OUTPUT is: ', rows);
+});
+connection.end();
+
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -141,7 +149,7 @@ function sendTextMessage(recipientId, messageText) {
 function ReminderFunc(recipientId,message) {
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection.connect();
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+    connection.query("INSERT INTO Customers (user, data) VALUES ("+recipientId+", "+message+");", function(err, rows, fields) {
       if (err) throw err;
       console.log('The solution is: ', rows);
     });
