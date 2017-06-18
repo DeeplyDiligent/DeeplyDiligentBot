@@ -102,7 +102,8 @@ function receivedMessage(event) {
 			ReminderFunc(senderID,messageText);
 		}else if (messageText == 'clear reminder' || messageText == 'clear reminders'){
             if (senderID in reminders){
-                delete reminders[senderID]
+                delete reminders[senderID];
+                deleteReminders(senderID);
             }
             sendTextMessage(senderID, "No problems! You have no more reminders")
         }else if(messageText == 'my reminders'){
@@ -174,6 +175,14 @@ function callSendAPI(messageData) {
   });  
 }
 
+function deleteReminders(userID){
+    var connection = mysql.createConnection(process.env.JAWSDB_URL);
+    connection.connect();
+    connection.query("DELETE FROM Customers WHERE name='data entry 1';", function(err, rows, fields) {
+      if (err) throw err;
+    });
+    connection.end();
+}
 function putReminderInTable(userID,message){
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection.connect();
