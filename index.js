@@ -234,7 +234,12 @@ function toTimeZone(whatzone) {
 function checkIfAnyOverdueReminders(sendto){
     //TODO: AUS ONLY AT THE MOMENT, EXPAND
     var time = toTimeZone("Australia/Melbourne");
-    console.log(time);
-    sendTextMessage(sendto,JSON.stringify(time));
-    
+    time.forEach(isoverdue);
+    function isoverdue(onetime, index){
+        if (parseInt(onetime.substring(0,2)) <= time[0] && parseInt(onetime.substring(3,5)) <= time[1]){
+            sendTextMessage(sendto,"it is "+ JSON.stringify(time)[0]+":"+JSON.stringify(time)[1]+ " and i am reminding you of " + onetime)
+            console.log('deleting reminder at '+ onetime);
+            //todo: delete the reminder
+        }
+    }
 }
