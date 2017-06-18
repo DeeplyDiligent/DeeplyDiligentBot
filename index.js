@@ -234,8 +234,8 @@ function toTimeZone(whatzone) {
 function checkIfAnyOverdueReminders(sendto){
     //TODO: AUS ONLY AT THE MOMENT, EXPAND
     var time = toTimeZone("Australia/Melbourne");
-    var copyofremindersforsendto = reminders[sendto].slice();
     if (copyofremindersforsendto != undefined){
+        var copyofremindersforsendto = reminders[sendto].slice();
         copyofremindersforsendto.forEach(isoverdue);
         function isoverdue(onetime, index){
             console.log('checking if ' + onetime.substring(0,2) +"<="+time[0] + " and "+ onetime.substring(3,5)+"<="+time[1]);
