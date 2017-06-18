@@ -159,7 +159,7 @@ function ReminderFunc(recipientId,message) {
 ////        console.log('imported reminders successfully')
 ////        console.log(reminders)
         //database entry
-        putInTable('data entry 1',reminders)
+        putReminderInTable('data entry 1',reminders)
 		delete all_messages[recipientId];
 	}
 }
@@ -189,7 +189,7 @@ function callSendAPI(messageData) {
   });  
 }
 
-function putInTable(userID,message){
+function putReminderInTable(userID,message){
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection.connect();
     connection.query("DELETE FROM Customers WHERE name='data entry 1';", function(err, rows, fields) {
@@ -208,7 +208,7 @@ function retrieveReminders(){
     var newReminders = {};
     connection.connect();
     console.log('about to retrieve reminders from database')
-    connection.query('SELECT * FROM Customers LIMIT 0,1;', function(err, rows, fields) {
+    connection.query("select * from Customers where name = 'data entry 1'", function(err, rows, fields) {
       if (err) throw err;
       console.log("importing these reminders: ");
         console.log(rows[0].dat);
