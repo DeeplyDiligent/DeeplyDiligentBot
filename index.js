@@ -205,8 +205,12 @@ function retrieveReminders(){
     connection.query("select * from Customers where name = 'data entry 1'", function(err, rows, fields) {
       if (err) throw err;
       console.log("importing these reminders: ");
-        console.log(rows[0].dat);
-        reminders = JSON.parse(rows[0].dat);
+        if (rows[0] != undefined){
+            console.log(rows[0].dat);
+            reminders = JSON.parse(rows[0].dat);
+        }else{
+            reminders = {};
+        }
     });
     connection.end();
 }
