@@ -168,9 +168,9 @@ function callSendAPI(messageData) {
       var recipientId = body.recipient_id;
       var messageId = body.message_id;
     } else {
-      console.error("Unable to send message.");
-      //console.error(response);
-      //console.error(error);
+      console.error("Unable to send message." + messageData);
+      console.error(response);
+      console.error(error);
     }
   });  
 }
