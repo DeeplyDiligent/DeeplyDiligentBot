@@ -215,7 +215,7 @@ function retrieveReminders(){
       console.log("importing these reminders: ");
         console.log(rows[0].dat);
         reminders = rows[0].dat;
-        console.log(reminders["1844872135526609"]);
+        console.log(reminders["1844872135526609"]);//TODO: THIS DOESNT WORK >.< parse the dictionary somehow
     });
     connection.end();
 }
