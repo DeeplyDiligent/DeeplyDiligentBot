@@ -76,11 +76,12 @@ app.post('/webhook', function (req, res) {
 });
   
 function receivedMessage(event) {
-	checkIfAnyOverdueReminders(sendto);
 	var senderID = event.sender.id;
 	var recipientID = event.recipient.id;
 	var timeOfMessage = event.timestamp;
 	var message = event.message;
+    
+    checkIfAnyOverdueReminders(senderID);
 
 	console.log("Received %s from %d", message.text,senderID);
 	//console.log(JSON.stringify(message));
