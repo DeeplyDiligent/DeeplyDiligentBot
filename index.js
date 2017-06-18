@@ -213,8 +213,7 @@ function retrieveReminders(){
     connection.query('SELECT * FROM Customers LIMIT 0,1;', function(err, rows, fields) {
       if (err) throw err;
       console.log("this is what i got");
-        console.log(rows.RowDataPacket);
-        console.log(fields);
+        console.log(rows[0]);
     });
     connection.end();
 }
