@@ -235,6 +235,6 @@ function checkIfAnyOverdueReminders(sendto){
     //TODO: AUS ONLY AT THE MOMENT, EXPAND
     var time = toTimeZone("Australia/Melbourne");
     console.log(time);
-    setTimeout(sendTextMessage(sendto,time), 2000);
+    setTimeout(function(){sendTextMessage(sendto,time)}, 2000);
     
 }
