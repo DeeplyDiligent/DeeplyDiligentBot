@@ -166,8 +166,6 @@ function callSendAPI(messageData) {
     if (!error && response.statusCode == 200) {
       var recipientId = body.recipient_id;
       var messageId = body.message_id;
-
-      //console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId);
     } else {
       console.error("Unable to send message.");
       //console.error(response);
@@ -214,14 +212,15 @@ function initTable(){
     console.log('database created')
 }
 
-function toTimeZone() {
+function toTimeZone(whatzone) {
     var moment = require('moment-timezone');
-    return [parseInt(moment().tz("Australia/Melbourne").format('H')),parseInt(moment().tz("Australia/Melbourne").format('m'))];
+    return [parseInt(moment().tz(whatzone).format('H')),parseInt(moment().tz("Australia/Melbourne").format('m'))];
 }
 
 function checkIfAnyOverdueReminders(sendto){
     //TODO: AUS ONLY AT THE MOMENT, EXPAND
-    var time = toTimeZone();
+    var time = toTimeZone("Australia/Melbourne");
+    console.log(time);
     sendTextMessage(sendto,time);
     
 }
