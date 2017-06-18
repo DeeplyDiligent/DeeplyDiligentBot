@@ -76,14 +76,6 @@ app.post('/webhook', function (req, res) {
 });
   
 function receivedMessage(event) {
-    
-	//setting active reminders
-    reminders = require("./filename.json");
-    console.log('imported reminders successfully')
-    console.log(reminders)
-	
-	
-	
 	
 	var senderID = event.sender.id;
 	var recipientID = event.recipient.id;
