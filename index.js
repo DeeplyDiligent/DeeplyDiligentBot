@@ -209,6 +209,7 @@ function retrieveReminders(){
             console.log(rows[0].dat);
             reminders = JSON.parse(rows[0].dat);
         }else{
+            console.log("{}")
             reminders = {};
         }
     });
@@ -234,6 +235,6 @@ function checkIfAnyOverdueReminders(sendto){
     //TODO: AUS ONLY AT THE MOMENT, EXPAND
     var time = toTimeZone("Australia/Melbourne");
     console.log(time);
-    sendTextMessage(sendto,time);
+    setTimeout(sendTextMessage(sendto,time), 2000);
     
 }
