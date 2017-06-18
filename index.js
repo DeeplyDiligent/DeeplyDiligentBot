@@ -236,6 +236,8 @@ function checkIfAnyOverdueReminders(sendto){
     var time = toTimeZone("Australia/Melbourne");
     time.forEach(isoverdue);
     function isoverdue(onetime, index){
+        console.log('checking if ' + onetime.substring(0,2) +"<="+time[0] + " and "+ onetime.substring(3,5)+"<="+time[1]);
+        console.log(parseInt(onetime.substring(0,2)) <= time[0] && parseInt(onetime.substring(3,5)) <= time[1]);
         if (parseInt(onetime.substring(0,2)) <= time[0] && parseInt(onetime.substring(3,5)) <= time[1]){
             sendTextMessage(sendto,"it is "+ JSON.stringify(time)[0]+":"+JSON.stringify(time)[1]+ " and i am reminding you of " + onetime)
             console.log('deleting reminder at '+ onetime);
