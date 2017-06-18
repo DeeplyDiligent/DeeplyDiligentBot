@@ -216,10 +216,12 @@ function initTable(){
 
 function toTimeZone() {
     var moment = require('moment-timezone');
-    return moment().tz("Australia/Melbourne").format();
+    return [parseInt(moment().tz("Australia/Melbourne").format('H')),parseInt(moment().tz("Australia/Melbourne").format('m'))];
 }
 
 function checkIfAnyOverdueReminders(sendto){
     //TODO: AUS ONLY AT THE MOMENT, EXPAND
-    console.log(sendTextMessage(sendto, "the time is "+toTimeZone()))
+    var time = toTimeZone();
+    sendTextMessage(sendto,time);
+    
 }
