@@ -104,6 +104,12 @@ function receivedMessage(event) {
                 delete reminders[senderID]
             }
             sendTextMessage(senderID, "No problems! You have no more reminders")
+        }else if(messageText == 'my reminders'){
+            if (senderID in reminders){
+                sendTextMessage(senderID, "you have these reminders: "+reminders[senderID])
+            }else{
+                sendTextMessage(senderID, "you have no reminders")
+            }
         }else{
 			sendTextMessage(senderID, "i dont recognise your message")
 		}
