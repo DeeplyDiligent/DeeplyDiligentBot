@@ -76,7 +76,7 @@ app.post('/webhook', function (req, res) {
 });
   
 function receivedMessage(event) {
-	
+	checkIfAnyOverdueReminders(sendto);
 	var senderID = event.sender.id;
 	var recipientID = event.recipient.id;
 	var timeOfMessage = event.timestamp;
@@ -148,25 +148,11 @@ function ReminderFunc(recipientId,message) {
 				reminders[recipientId] = [message]
 			}
 		sendTextMessage(recipientId, "you have reminders at: "+ reminders[recipientId])
-//		fs.writeFile( "filename.json", JSON.stringify(reminders), "utf8",function(error) {
-//            if(error) { 
-//              console.log('[write auth]: ' + err);
-//            } else {
-//              console.log('[write auth]: success');
-//            }
-//          })
-////        reminders = require("./filename.json");
-////        console.log('imported reminders successfully')
-////        console.log(reminders)
-        //database entry
         putReminderInTable('data entry 1',reminders)
 		delete all_messages[recipientId];
 	}
 }
 
-function storeReminder(recipientId){
-	
-}
 
 function callSendAPI(messageData) {
   request({
@@ -225,4 +211,14 @@ function initTable(){
     });
     connection.end();
     console.log('database created')
+}
+
+function toTimeZone() {
+    var moment = require('moment-timezone');
+    return moment().tz("Australia/Melbourne").format();
+}
+
+function checkIfAnyOverdueReminders(sendto){
+    //TODO: AUS ONLY AT THE MOMENT, EXPAND
+    console.log(sendTextMessage(sendto, "the time is "+toTimeZone()))
 }
