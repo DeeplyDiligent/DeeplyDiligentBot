@@ -194,7 +194,10 @@ function callSendAPI(messageData) {
 function putInTable(userID,message){
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection.connect();
-    var updateorinsert = "INSERT INTO `Customers` (`name`,`dat`) values ('"+userID+"','"+JSON.stringify(message)+"') ON DUPLICATE KEY UPDATE `name` = '"+userID+"';"
+    connection.query("DELETE FROM Customers WHERE name='data entry 1';", function(err, rows, fields) {
+      if (err) throw err;
+    });
+    var updateorinsert = "INSERT INTO `Customers` (`name`,`dat`) values ('"+userID+"','"+JSON.stringify(message)+"')"
     console.log('about to run '+updateorinsert +' on database');
     connection.query(updateorinsert, function(err, rows, fields) {
       if (err) throw err;
@@ -218,7 +221,7 @@ function retrieveReminders(){
 function initTable(){
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection.connect();
-    connection.query("CREATE TABLE IF NOT EXISTS Customers (name VARCHAR(20), dat VARCHAR(20));", function(err, rows, fields) {
+    connection.query("CREATE TABLE IF NOT EXISTS Customers (name VARCHAR(20), dat VARCHAR(8192));", function(err, rows, fields) {
       if (err) throw err;
     //  console.log('The OUTPUT is: ', rows);
     });
