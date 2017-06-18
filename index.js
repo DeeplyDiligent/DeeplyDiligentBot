@@ -212,8 +212,10 @@ function retrieveReminders(){
     console.log('about to retrieve reminders from database')
     connection.query('SELECT * FROM Customers LIMIT 0,1;', function(err, rows, fields) {
       if (err) throw err;
-      console.log("this is what i got");
+      console.log("importing these reminders: ");
         console.log(rows[0].dat);
+        reminders = rows[0].dat;
+        console.log(reminders);
     });
     connection.end();
 }
