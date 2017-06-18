@@ -194,7 +194,7 @@ function callSendAPI(messageData) {
 function putInTable(userID,message){
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection.connect();
-    var updateorinsert = "INSERT INTO `Customers` (`name`,`dat`) values ('"+userID+"','"+message+"') ON DUPLICATE KEY UPDATE `name` = '"+userID+"'"
+    var updateorinsert = "INSERT INTO `Customers` (`name`,`dat`) values ('"+userID+"','"+message+"') ON DUPLICATE KEY UPDATE `name` = '"+userID+"';"
     console.log('about to run '+updateorinsert +' on database');
     connection.query(updateorinsert, function(err, rows, fields) {
       if (err) throw err;
@@ -207,7 +207,7 @@ function retrieveReminders(){
     var newReminders = {};
     connection.connect();
     console.log('about to retrieve reminders from database')
-    connection.query('SELECT * FROM Customers LIMIT 0,1', function(err, rows, fields) {
+    connection.query('SELECT * FROM Customers LIMIT 0,1;', function(err, rows, fields) {
       if (err) throw err;
       console.log("this is what i got");
         console.log(rows);
