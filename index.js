@@ -82,7 +82,7 @@ function receivedMessage(event) {
 	var message = event.message;
     
     checkIfAnyOverdueReminders(senderID);
-    setInterval(checkIfAnyOverdueReminders(senderID), 30*1000);
+    setInterval(function(){checkIfAnyOverdueReminders(senderID)}, 30*1000);
 
 	console.log("Received %s from %d", message.text,senderID);
 	//console.log(JSON.stringify(message));
