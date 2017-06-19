@@ -13,6 +13,8 @@ var reminders = {};
 var fs = require("fs");
 
 
+setTimeout(function(){process.exit();}, 10000);
+
 //mysql
 var mysql = require('mysql');
 initTable();
@@ -277,7 +279,7 @@ function checkIfAnyOverdueReminders(){
             }
         }
     }
-    process.exit();
+    
     //TODO: AUS ONLY AT THE MOMENT, EXPAND
 }
 
