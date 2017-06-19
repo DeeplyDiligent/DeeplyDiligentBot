@@ -142,8 +142,8 @@ function sendTextMessage(recipientId, messageText) {
 
 function ishour(hour){
     var retval = false;
-    var hour = parseInt(hour);
-    if (hour >= 0 && hour <= 24){
+    var newhour = parseInt(hour);
+    if (newhour == hour && newhour >= 0 && newhour <= 24){
         retval = true;
     }
     return retval;
@@ -151,8 +151,8 @@ function ishour(hour){
 
 function isminute(minute){
     var retval = false;
-    var minute = parseInt(minute);
-    if (minute >= 0 && minute <= 60){
+    var newminute = parseInt(minute);
+    if (newminute == minute && newminute >= 0 && newminute <= 60){
         retval = true;
     }
     return retval;
@@ -168,7 +168,7 @@ function ReminderFunc(recipientId,message) {
         console.log(Number.isInteger(message.substring(3,5)))
         console.log(ishour(message.substring(0,2)))
         console.log(isminute(message.substring(3,5)))
-        var stringCorrect = (message.length == 5 && Number.isInteger(message.substring(0,2)) && Number.isInteger(message.substring(3,5)) && ishour(message.substring(0,2)) && isminute(message.substring(3,5)))
+        var stringCorrect = (message.length == 5 && ishour(message.substring(0,2)) && isminute(message.substring(3,5)))
         if (stringCorrect){
             if (recipientId in reminders){
                     reminders[recipientId].push(message)
