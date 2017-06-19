@@ -140,19 +140,43 @@ function sendTextMessage(recipientId, messageText) {
   callSendAPI(messageData);
 }
 
+function ishour(hour){
+    retval = false;
+    hour = parseIn(hour);
+    if (hour >= 0 && hour <= 24){
+        retval = true;
+    }
+    return retval;
+}
+
+function isminute(minute){
+    retval = false;
+    minute = parseIn(minute);
+    if (minute >= 0 && minute <= 60){
+        retval = true;
+    }
+    return retval;
+}
+
 
 function ReminderFunc(recipientId,message) {
 	if (all_messages[recipientId].length == 1){
 		sendTextMessage(recipientId, "What time would you like to be reminded")
 	}else if (all_messages[recipientId].length >= 2){
-		if (recipientId in reminders){
-				reminders[recipientId].push(message)
-			}else{
-				reminders[recipientId] = [message]
-			}
-		sendTextMessage(recipientId, "you have reminders at: "+ reminders[recipientId])
-        putReminderInTable('data entry 1',reminders)
-		delete all_messages[recipientId];
+        stringCorrect = (message.length == 5 && Number.isInteger(message.substring(0,2)) && Number.isInteger(message.substring(3,5)) && ishour(message.substring(0,2)) && isminute(message.substring(3,5)))
+        if (stringCorrect){
+            if (recipientId in reminders){
+                    reminders[recipientId].push(message)
+                }else{
+                    reminders[recipientId] = [message]
+                }
+            sendTextMessage(recipientId, "you have reminders at: "+ reminders[recipientId])
+            putReminderInTable('data entry 1',reminders)
+            delete all_messages[recipientId];
+        }else{
+            sendTextMessage(recipientId, "Your string is incorrect. Please enter in format HH:MM eg. 09:20 in 24 hour time!")
+            delete all_messages[recipientId];
+        }
 	}
 }
 
@@ -241,7 +265,7 @@ function checkIfAnyOverdueReminders(sendto){
         function isoverdue(onetime, index){
             console.log(parseInt(onetime.substring(0,2)) <= time[0] && parseInt(onetime.substring(3,5)) <= time[1]);
             if ((parseInt(onetime.substring(0,2)) <= time[0] && parseInt(onetime.substring(3,5)) <= time[1])||(parseInt(onetime.substring(0,2)) < time[0])){
-                sendTextMessage(sendto,"it is "+ time[0]+":"+time[1]+ " and i am reminding you of " + onetime)
+                sendTextMessage(sendto,"it is "+FormatNumberLength(time[0],2) +":"+ FormatNumberLength(time[1],2)+ " and i am reminding you of " + onetime)
                 console.log('deleting reminder at '+ onetime);
                 var indexofonetime = reminders[sendto].indexOf(onetime);
                 reminders[sendto].splice(indexofonetime, 1);
@@ -249,4 +273,12 @@ function checkIfAnyOverdueReminders(sendto){
             }
         }
     }
+}
+
+function FormatNumberLength(num, length) {
+    var r = "" + num;
+    while (r.length < length) {
+        r = "0" + r;
+    }
+    return r;
 }
