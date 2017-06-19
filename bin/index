@@ -18,7 +18,6 @@ var mysql = require('mysql');
 initTable();
 retrieveReminders();    
 
-setInterval(function(){checkIfAnyOverdueReminders()}, 60*1000);
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -225,7 +224,6 @@ function retrieveReminders(){
         }
     });
     connection.end();
-    checkIfAnyOverdueReminders();
 }
 function initTable(){
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
@@ -244,6 +242,7 @@ function toTimeZone(whatzone) {
 }
 
 function checkIfAnyOverdueReminders(){
+    console.log('about to check if any overdue reminders in'+ JSON.stringify(reminders))
     for (var sendto in reminders) {
         var time = toTimeZone("Australia/Melbourne");
         if (reminders[sendto] != undefined){
