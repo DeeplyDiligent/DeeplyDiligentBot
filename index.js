@@ -208,17 +208,17 @@ function deleteReminders(userID){
     });
     connection.end();
 }
-function putReminderInTable(userID,message){
+function putReminderInTable(name, dat){
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
     connection.connect();
     connection.query("DELETE FROM Customers WHERE name='data entry 1';", function(err, rows, fields) {
       if (err) throw err;
     });
-    var updateorinsert = "INSERT INTO `Customers` (`name`,`dat`) values ('"+userID+"','"+JSON.stringify(message)+"')"
+    var updateorinsert = "INSERT INTO `Customers` (`name`,`dat`) values ('"+name+"','"+JSON.stringify(dat)+"')"
     console.log('about to run '+updateorinsert +' on database');
     connection.query(updateorinsert, function(err, rows, fields) {
       if (err) throw err;
-      console.log(JSON.stringify(message)+"placed in Customers for "+userID);
+      console.log(JSON.stringify(dat)+" placed in Customers for "+name);
     });
     connection.end();
 }
@@ -269,6 +269,7 @@ function checkIfAnyOverdueReminders(sendto){
                 console.log('deleting reminder at '+ onetime);
                 var indexofonetime = reminders[sendto].indexOf(onetime);
                 reminders[sendto].splice(indexofonetime, 1);
+                putReminderInTable('data entry 1',reminders)
                 //todo: delete the reminder
             }
         }
