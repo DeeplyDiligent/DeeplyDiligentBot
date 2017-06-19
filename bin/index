@@ -1,3 +1,4 @@
+#! /app/bin/node
 'use strict';
 
 const token = 'thisistoken'
