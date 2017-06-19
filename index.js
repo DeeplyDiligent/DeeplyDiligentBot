@@ -17,6 +17,9 @@ var mysql = require('mysql');
 initTable();
 retrieveReminders();    
 
+checkIfAnyOverdueReminders();
+setInterval(function(){checkIfAnyOverdueReminders()}, 60*1000);
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -81,8 +84,7 @@ function receivedMessage(event) {
 	var timeOfMessage = event.timestamp;
 	var message = event.message;
     
-    checkIfAnyOverdueReminders(senderID);
-    setInterval(function(){checkIfAnyOverdueReminders(senderID)}, 60*1000);
+    
 
 	console.log("Received %s from %d", message.text,senderID);
 	//console.log(JSON.stringify(message));
@@ -261,24 +263,25 @@ function toTimeZone(whatzone) {
     return [parseInt(moment().tz(whatzone).format('H')),parseInt(moment().tz("Australia/Melbourne").format('m'))];
 }
 
-function checkIfAnyOverdueReminders(sendto){
-    //TODO: AUS ONLY AT THE MOMENT, EXPAND
-    var time = toTimeZone("Australia/Melbourne");
-    if (reminders[sendto] != undefined){
-        var copyofremindersforsendto = reminders[sendto].slice();
-        copyofremindersforsendto.forEach(isoverdue);
-        function isoverdue(onetime, index){
-            console.log(parseInt(onetime.substring(0,2)) <= time[0] && parseInt(onetime.substring(3,5)) <= time[1]);
-            if ((parseInt(onetime.substring(0,2)) <= time[0] && parseInt(onetime.substring(3,5)) <= time[1])||(parseInt(onetime.substring(0,2)) < time[0])){
-                sendTextMessage(sendto,"it is "+FormatNumberLength(time[0],2) +":"+ FormatNumberLength(time[1],2)+ " and i am reminding you of " + onetime)
-                console.log('deleting reminder at '+ onetime);
-                var indexofonetime = reminders[sendto].indexOf(onetime);
-                reminders[sendto].splice(indexofonetime, 1);
-                putReminderInTable('data entry 1',reminders)
-                //todo: delete the reminder
+function checkIfAnyOverdueReminders(){
+    for (var sendto in reminders) {
+        var time = toTimeZone("Australia/Melbourne");
+        if (reminders[sendto] != undefined){
+            var copyofremindersforsendto = reminders[sendto].slice();
+            copyofremindersforsendto.forEach(isoverdue);
+            function isoverdue(onetime, index){
+                if ((parseInt(onetime.substring(0,2)) <= time[0] && parseInt(onetime.substring(3,5)) <= time[1])||(parseInt(onetime.substring(0,2)) < time[0])){
+                    sendTextMessage(sendto,"it is "+FormatNumberLength(time[0],2) +":"+ FormatNumberLength(time[1],2)+ " and i am reminding you of " + onetime)
+                    console.log('deleting reminder at '+ onetime);
+                    var indexofonetime = reminders[sendto].indexOf(onetime);
+                    reminders[sendto].splice(indexofonetime, 1);
+                    putReminderInTable('data entry 1',reminders)
+                    //todo: delete the reminder
+                }
             }
         }
     }
+    //TODO: AUS ONLY AT THE MOMENT, EXPAND
 }
 
 function FormatNumberLength(num, length) {
