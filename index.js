@@ -163,7 +163,7 @@ function ReminderFunc(recipientId,message) {
 	if (all_messages[recipientId].length == 1){
 		sendTextMessage(recipientId, "What time would you like to be reminded")
 	}else if (all_messages[recipientId].length >= 2){
-        stringCorrect = (message.length == 5 && Number.isInteger(message.substring(0,2)) && Number.isInteger(message.substring(3,5)) && ishour(message.substring(0,2)) && isminute(message.substring(3,5)))
+        var stringCorrect = (message.length == 5 && Number.isInteger(message.substring(0,2)) && Number.isInteger(message.substring(3,5)) && ishour(message.substring(0,2)) && isminute(message.substring(3,5)))
         if (stringCorrect){
             if (recipientId in reminders){
                     reminders[recipientId].push(message)
