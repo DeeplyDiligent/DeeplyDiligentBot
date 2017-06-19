@@ -141,8 +141,8 @@ function sendTextMessage(recipientId, messageText) {
 }
 
 function ishour(hour){
-    retval = false;
-    hour = parseIn(hour);
+    var retval = false;
+    var hour = parseIn(hour);
     if (hour >= 0 && hour <= 24){
         retval = true;
     }
@@ -150,8 +150,8 @@ function ishour(hour){
 }
 
 function isminute(minute){
-    retval = false;
-    minute = parseIn(minute);
+    var retval = false;
+    var minute = parseIn(minute);
     if (minute >= 0 && minute <= 60){
         retval = true;
     }
