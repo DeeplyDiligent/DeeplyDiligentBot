@@ -18,6 +18,7 @@ var mysql = require('mysql');
 initTable();
 retrieveReminders();    
 
+console.log('server will now check reminders for expiry: '+JSON.stringify(reminders))
 checkIfAnyOverdueReminders();
 setInterval(function(){checkIfAnyOverdueReminders()}, 60*1000);
 

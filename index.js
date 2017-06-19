@@ -17,7 +17,6 @@ var mysql = require('mysql');
 initTable();
 retrieveReminders();    
 
-checkIfAnyOverdueReminders();
 setInterval(function(){checkIfAnyOverdueReminders()}, 60*1000);
 
 app.set('port', (process.env.PORT || 5000))
@@ -44,6 +43,7 @@ app.get('/webhook/', function (req, res) {
 // Spin up the server
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
+    checkIfAnyOverdueReminders();
 })
 
 app.post('/webhook', function (req, res) {
