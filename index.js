@@ -234,13 +234,13 @@ function retrieveReminders(){
         if (rows[0] != undefined){
             console.log(rows[0].dat);
             reminders = JSON.parse(rows[0].dat);
+            checkIfAnyOverdueReminders();
         }else{
             console.log("{}")
             reminders = {};
         }
     });
     connection.end();
-    checkIfAnyOverdueReminders();
 }
 function initTable(){
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
