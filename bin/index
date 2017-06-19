@@ -261,6 +261,7 @@ function checkIfAnyOverdueReminders(){
             }
         }
     }
+    process.exit();
     //TODO: AUS ONLY AT THE MOMENT, EXPAND
 }
 
