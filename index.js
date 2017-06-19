@@ -259,6 +259,7 @@ function toTimeZone(whatzone) {
 }
 
 function checkIfAnyOverdueReminders(){
+    console.log('about to check if any overdue reminders in'+ JSON.stringify(reminders))
     for (var sendto in reminders) {
         var time = toTimeZone("Australia/Melbourne");
         if (reminders[sendto] != undefined){
