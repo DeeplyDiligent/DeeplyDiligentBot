@@ -15,7 +15,7 @@ var fs = require("fs");
 //mysql
 var mysql = require('mysql');
 initTable();
-retrieveReminders();    
+retrieveReminders();   
 
 setInterval(function(){checkIfAnyOverdueReminders()}, 60*1000);
 
@@ -43,7 +43,6 @@ app.get('/webhook/', function (req, res) {
 // Spin up the server
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
-    checkIfAnyOverdueReminders();
 })
 
 app.post('/webhook', function (req, res) {
@@ -241,6 +240,7 @@ function retrieveReminders(){
         }
     });
     connection.end();
+    checkIfAnyOverdueReminders();
 }
 function initTable(){
     var connection = mysql.createConnection(process.env.JAWSDB_URL);
