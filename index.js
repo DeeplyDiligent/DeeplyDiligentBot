@@ -17,7 +17,8 @@ var mysql = require('mysql');
 initTable();
 retrieveReminders();   
 
-setInterval(function(){checkIfAnyOverdueReminders()}, 60*1000);
+setInterval(function(){retrieveReminders();
+                       checkIfAnyOverdueReminders()}, 60*1000);
 
 app.set('port', (process.env.PORT || 5000))
 
