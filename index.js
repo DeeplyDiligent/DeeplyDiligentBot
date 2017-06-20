@@ -17,8 +17,9 @@ var mysql = require('mysql');
 initTable();
 retrieveReminders();   
 
+setTimeout(function() {checkIfAnyOverdueReminders();}, 2000);
 setInterval(function(){retrieveReminders();
-                       checkIfAnyOverdueReminders()}, 60*1000);
+                       setTimeout(function() {checkIfAnyOverdueReminders();}, 2000);}, 60*1000);
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -235,7 +236,6 @@ function retrieveReminders(){
         if (rows[0] != undefined){
             console.log(rows[0].dat);
             reminders = JSON.parse(rows[0].dat);
-            checkIfAnyOverdueReminders();
         }else{
             console.log("{}")
             reminders = {};
