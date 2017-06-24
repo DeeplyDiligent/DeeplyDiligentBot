@@ -12,6 +12,7 @@ var reminders = {};
 var fs = require("fs");
 
 
+
 //mysql
 var mysql = require('mysql');
 initTable();
