@@ -16,9 +16,9 @@ var fs = require("fs");
 //mysql
 var mysql = require('mysql');
 initTable();
-retrieveReminders();   
-
+setTimeout(function() {retrieveReminders();}, 500);
 setTimeout(function() {checkIfAnyOverdueReminders();}, 2000);
+
 setInterval(function(){retrieveReminders();
                        setTimeout(function() {checkIfAnyOverdueReminders();}, 2000);}, 60*1000);
 
