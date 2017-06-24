@@ -20,7 +20,7 @@ setTimeout(function() {retrieveReminders();}, 500);
 setTimeout(function() {checkIfAnyOverdueReminders();}, 2000);
 
 setInterval(function(){retrieveReminders();
-                       setTimeout(function() {checkIfAnyOverdueReminders();}, 2000);}, 60*1000);
+                       setTimeout(function() {checkIfAnyOverdueReminders();}, 2000);}, 53*1000);
 
 app.set('port', (process.env.PORT || 5000))
 
