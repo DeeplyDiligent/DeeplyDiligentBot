@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Ko0lGuY/DeeplyDiligentBot#readme",
   "dependencies": {
-	"npm": "3.10.10"
+	"npm": "3.10.10",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "moment": "^2.18.1",
