@@ -1,6 +1,7 @@
 #! /app/.heroku/node/bin/node
 'use strict';
 
+console.log('I am the helper bot, not the actual bot');
 const token = 'thisistoken'
 const vtoken = 'EAADJNn4kPAkBAGob7TMYmOQ5bQwUtLxWU5njGKWx4vUItZAEgP4407T6ImZA1In4JO5mFg6ZCCFMPp8p0dUEH91uQkXf9jJT9gNIZCpWmSMWjFglGsFxQdBV6GnyRuTfZAhZCdZBDMAxzz01GXKA54CZA0vskemjSrzNLISVz8eBNgZDZD'
 
