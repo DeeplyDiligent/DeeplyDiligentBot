@@ -1,0 +1,1 @@
+This is a bot designed to work with messenger to remind people of dates and times. It will also be able to integrate with the user's calendar to automatically create appointments. It uses node.JS, a version of javascript designed to run on servers.
