@@ -162,6 +162,10 @@ function isminute(minute){
     return retval;
 }
 
+function isdate(date){
+    
+}
+
 
 function ReminderFunc(recipientId,message) {
 	if (all_messages[recipientId].length == 1){
@@ -268,7 +272,7 @@ function checkIfAnyOverdueReminders(){
             var copyofremindersforsendto = reminders[sendto].slice();
             copyofremindersforsendto.forEach(isoverdue);
             function isoverdue(onetime, index){
-                if ((parseInt(onetime.substring(0,2)) <= time[0] && parseInt(onetime.substring(3,5)) <= time[1])||(parseInt(onetime.substring(0,2)) < time[0])){
+                if (((parseInt(onetime.substring(0,2)) <= time[0] && parseInt(onetime.substring(3,5)) <= time[1])||(parseInt(onetime.substring(0,2)) < time[0])) && ){
                     sendTextMessage(sendto,"it is "+FormatNumberLength(time[0],2) +":"+ FormatNumberLength(time[1],2)+ " and i am reminding you of " + onetime)
                     console.log('deleting reminder at '+ onetime);
                     var indexofonetime = reminders[sendto].indexOf(onetime);
